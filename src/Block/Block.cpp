@@ -11,13 +11,21 @@ std::string Block::calculateHash() const {
     return calculatedHash;
 }
 
+std::string Block::serializeJson() const {
+    nlohmann::json jsonBlock;
+    jsonBlock["index"] = index;
+    jsonBlock["previousHash"] = previousHash;
+
+    return jsonBlock.dump();
+}
+
 void Block::mineBlock(const Block& previousBlock, const std::vector<Transaction>& transactions) {
     index = previousBlock.index + 1;
     previousHash = previousBlock.hash;
     timestamp = std::time(nullptr);
     this->transactions = transactions;
 
-    difficulty = 2;
+    difficulty = 3;
 
     unsigned int nonce = 0;
     std::string target(difficulty, '0');

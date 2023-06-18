@@ -1,0 +1,6 @@
+[submodule "thirdparty/leveldb"]
+	path = thirdparty/leveldb
+	url = https://github.com/google/leveldb
+[submodule "thirdparty/json"]
+	path = thirdparty/json
+	url = https://github.com/nlohmann/json

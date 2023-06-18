@@ -7,7 +7,10 @@
 #include <iostream>
 #include <iomanip>
 #include <sstream>
+
 #include <openssl/sha.h>
+#include <leveldb/db.h>
+#include <nlohmann/json.hpp>
 
 #include "Transaction/Transaction.h"
 
@@ -22,6 +25,7 @@ struct Block {
     int difficulty;
 
     std::string calculateHash() const;
+    std::string serializeJson() const;
     void mineBlock(const Block& previousBlock, const std::vector<Transaction>& transactions);
 };
 

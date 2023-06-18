@@ -18,8 +18,11 @@ set(HEADER_FILES
 add_executable(Tultip ${SOURCE_FILES} ${HEADER_FILES})
 
 find_package(OpenSSL REQUIRED)
-target_link_libraries(${PROJECT_NAME} OpenSSL::Crypto)
+add_subdirectory(thirdparty/leveldb)
+target_link_libraries(${PROJECT_NAME} OpenSSL::Crypto leveldb)
 include_directories(${OPENSSL_INCLUDE_DIR})
+add_subdirectory(thirdparty/json)
+include_directories(thirdparty/json/include)
 
 install(TARGETS Tultip
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
