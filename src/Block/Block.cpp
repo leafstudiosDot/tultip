@@ -15,6 +15,8 @@ std::string Block::serializeJson() const {
     nlohmann::json jsonBlock;
     jsonBlock["index"] = index;
     jsonBlock["previousHash"] = previousHash;
+    jsonBlock["time"] = timestamp;
+    jsonBlock["nonce"] = nonce;
 
     return jsonBlock.dump();
 }
@@ -46,4 +48,22 @@ void Block::mineBlock(const Block& previousBlock, const std::vector<Transaction>
 
         ++nonce;
     }
+}
+
+std::string Block::convertToStringHash() const {
+    std::string data = std::to_string(index) + previousHash + std::to_string(timestamp) + std::to_string(nonce);
+
+    unsigned char hash[SHA256_DIGEST_LENGTH];
+    SHA256(reinterpret_cast<const unsigned char*>(data.c_str()), data.length(), hash);
+
+    std::string calculatedHash(reinterpret_cast<char*>(hash), SHA256_DIGEST_LENGTH);
+
+    std::ostringstream hashStream;
+    for (const auto& byte : calculatedHash) {
+        hashStream << std::setw(2) << std::setfill('0') << std::hex << std::uppercase
+                   << static_cast<unsigned int>(static_cast<unsigned char>(byte));
+    }
+    std::string hashString = hashStream.str();
+
+    return hashString;
 }

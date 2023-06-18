@@ -26,6 +26,7 @@ struct Block {
 
     std::string calculateHash() const;
     std::string serializeJson() const;
+    std::string convertToStringHash() const;
     void mineBlock(const Block& previousBlock, const std::vector<Transaction>& transactions);
 };
 
